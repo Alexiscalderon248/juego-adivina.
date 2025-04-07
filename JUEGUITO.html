@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego: Adivina el Número</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Adivina el número</h2>
+        <p>He pensado en un número entre 1 y 100. ¡Adivina cuál es!</p>
+        <input type="number" id="userGuess" placeholder="Escribe tu número" min="1" max="100">
+        <button onclick="checkGuess()">Adivinar</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Generar un número aleatorio entre 1 y 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('userGuess').value);
+            const messageElement = document.getElementById('message');
+            attempts++;
+
+            if (userGuess < 1 || userGuess > 100 || isNaN(userGuess)) {
+                messageElement.textContent = "Por favor, ingresa un número válido entre 1 y 100.";
+                messageElement.style.color = "red";
+            } else if (userGuess < randomNumber) {
+                messageElement.textContent = "El número es más alto. ¡Intenta nuevamente!";
+                messageElement.style.color = "blue";
+            } else if (userGuess > randomNumber) {
+                messageElement.textContent = "El número es más bajo. ¡Intenta nuevamente!";
+                messageElement.style.color = "blue";
+            } else {
+                messageElement.textContent = `¡Felicidades! Adivinaste el número en ${attempts} intentos.`;
+                messageElement.style.color = "green";
+            }
+        }
+    </script>
+
+</body>
+</html>
